@@ -1,0 +1,46 @@
+#tsparticles, #tsparticles > canvas {
+  position: absolute;
+  z-index: 1 !important;
+}
+
+#tsparticles {
+  width: 100%;
+  height: calc(100% - 90px);
+  top: 90px;
+}
+
+.recharts-responsive-container {
+  margin-top: 30px;
+}
+
+#root {
+  background-color: #222;
+}
+
+* {
+  z-index: 2;
+}
+
+html {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #F2F2F2;
+    font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  a {
+    text-decoration: none !important;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  /* [type=button]{
+    -webkit-appearance: none !important;
+  } */

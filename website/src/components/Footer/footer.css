@@ -1,0 +1,13 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  background-color: #101010;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer__link {
+  font-family: Pacifico, cursive;
+  color: white;
+  margin: 15px;
+}

@@ -1,0 +1,13 @@
+{
+  "generator-react-firebase": {
+    "promptValues": {
+      "githubUser": "MikeynJerry",
+      "includeRedux": false,
+      "includeFirestore": false,
+      "otherFeatures": [],
+      "firebaseKey": "AIzaSyAkp1JlGqJCTTBFy3m_Jp4TX1a6ypHC-Ps",
+      "firebaseProjectId": "crime-novel-analysis",
+      "appId": "1:2151577598:web:b6b23ba7f5dbdd01c8b2af"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "name": "NLP",
+  "version": "0.0.1",
+  "description": "Natural Language Processing Projects",
+  "main": "index.js",
+  "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "start:dist": "npm run build && firebase emulators:start --only hosting",
+    "start:emulate": "cross-env REACT_APP_FIREBASE_DATABASE_EMULATOR_HOST=\"localhost:$(cat firebase.json | jq .emulators.database.port)\" npm run start",
+    "emulators": "firebase emulators:start --only firestore,database,pubsub",
+    "emulators:hosting": "firebase emulators:start --only firestore,database,hosting",
+    "emulators:all": "firebase emulators:start",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --single-quote --no-semi --trailing-comma none --write \"src/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeynJerry/website.git"
+  },
+  "engines": {
+    "node": ">12.18.0"
+  },
+  "author": "MikeynJerry (https://github.com/MikeynJerry)",
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "firebase": "^7.17.2",
+    "notistack": "^0.9.17",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-google-button": "^0.7.0",
+    "react-hook-form": "^6.4.0",
+    "react-kapsule": "^2.2.0",
+    "react-particles-js": "^3.3.0",
+    "react-router-dom": "^5.2.0",
+    "react-scrollbars-custom": "^4.0.25",
+    "reactfire": "^2.0.3",
+    "recharts": "^1.8.5",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^1.2.1"
+  },
+  "devDependencies": {
+    "@sentry/cli": "^1.55.1",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^30.0.3",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-plugin-standard": "^4.0.1",
+    "firebase-ci": "^0.14.0",
+    "firebase-tools": "^8.7.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
+    "react-scripts": "^3.4.3"
+  },
+  "eslintConfig": {
+    "extends": "./eslintrc.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "config": {
+    "port": 3000
+  }
+}

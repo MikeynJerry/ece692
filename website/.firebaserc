@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "ece692",
+    "master": "ece692",
+    "prod": "ece692"
+  }
+}
