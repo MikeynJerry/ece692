@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { Container, Modal, Button, Dropdown } from 'semantic-ui-react'
+import React, { useState, Fragment } from 'react'
+import { Container, Modal, Button, Dropdown, Divider } from 'semantic-ui-react'
 import Scrollbar from 'react-scrollbars-custom'
-import fletcherData from '../../../../static/fletcher.json'
+import fletcherData from 'static/fletcher.json'
 import {
   Line,
   ResponsiveContainer,
@@ -13,38 +13,19 @@ import {
   LineChart,
   Brush
 } from 'recharts'
+import ChartModal from 'components/ChartModal'
 
 function sortData(data) {
   const sortBy = 'title'
-  console.log(data)
   const sortedData = data.sort((a, b) =>
     a[sortBy].toUpperCase() > b[sortBy].toUpperCase() ? 1 : -1
   )
   return processData(sortedData)
 }
 
-function parseMatch(chapter, sentence, chapterLengths) {
-  const chapterLength = chapterLengths[chapter - 1]
-  console.log([
-    chapter + sentence / chapterLength,
-    chapter + (sentence + 1) / chapterLength
-  ])
-  return [
-    chapter + sentence / chapterLength,
-    chapter + (sentence + 1) / chapterLength
-  ]
-}
-
 function filterData(data, filters) {
   return data.filter(book =>
     Object.keys(filters).every(key => {
-      console.log(
-        book,
-        key,
-        !!!filters[key].length,
-        filters[key].includes(book[key]),
-        !!!filters[key].length || filters[key].includes(book[key])
-      )
       return !!!filters[key].length || filters[key].includes(book[key])
     })
   )
@@ -56,13 +37,10 @@ function processData(data, filters) {
   data = filterData(data, {
     author: [],
     title: [],
-    queryType: [],
     question: [],
     ...filters
   })
 
-  const bookTitles = Array.from(new Set(data.map(book => book.title)))
-  const bookQuestions = Array.from(new Set(data.map(book => book.question)))
   const bookLengths = data.map(book => book.numChapters)
   const maxBookLength = Math.max(...bookLengths)
 
@@ -73,7 +51,8 @@ function processData(data, filters) {
         const rv = {}
         for (const book of data) {
           if (chapter < book.numChapters)
-            rv[`${book.title} - ${book.question}`] = book.results[chapter + 1]
+            rv[`${book.title} - ${book.question} - "${book.query}"`] =
+              book.results[chapter + 1]
         }
         return rv
       })
@@ -81,12 +60,11 @@ function processData(data, filters) {
   )
 
   return {
+    books: data,
     counts: Object.keys(counts).map(key => {
       counts[key].x = parseInt(key)
       return counts[key]
-    }),
-    titles: bookTitles,
-    questions: bookQuestions
+    })
   }
 }
 
@@ -99,10 +77,10 @@ const colors = [
   '#ffa600'
 ]
 
-function Chart({ data: { counts, titles, questions } }) {
-  const lines = titles
-    .map(title => questions.map(question => `${title} - ${question}`))
-    .flat()
+function Chart({ data: { books, counts } }) {
+  const lines = books.map(
+    book => `${book.title} - ${book.question} - "${book.query}"`
+  )
   return (
     <ResponsiveContainer width='100%' height={300}>
       <LineChart
@@ -120,8 +98,7 @@ function Chart({ data: { counts, titles, questions } }) {
         <YAxis
           label={{
             value: 'Occurrences',
-            position: 'insideBottomLeft',
-            offset: 20,
+            position: 'insideLeft',
             angle: -90
           }}
         />
@@ -141,72 +118,10 @@ function Chart({ data: { counts, titles, questions } }) {
   )
 }
 
-const createDropdown = key =>
-  Array.from(new Set(fletcherData.map(book => book[key]))).map(key => ({
-    key,
-    text: key,
-    value: key
-  }))
-
-const authorOptions = createDropdown('author')
-const questionOptions = createDropdown('question')
-const bookOptions = createDropdown('title')
-
-function AddChart({ createChart }) {
-  const [open, setOpen] = React.useState(false)
-  const [filters, setFilters] = React.useState({})
-
-  return (
-    <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-      trigger={<Button>Add Chart</Button>}
-    >
-      <Modal.Header>Create a Chart</Modal.Header>
-      <Modal.Content>
-        <Dropdown
-          multiple
-          search
-          selection
-          placeholder='Authors'
-          options={authorOptions}
-        />
-        <Dropdown
-          multiple
-          search
-          selection
-          placeholder='Questions'
-          options={questionOptions}
-        />
-        <Dropdown
-          multiple
-          search
-          selection
-          placeholder='Books'
-          options={bookOptions}
-        />
-      </Modal.Content>
-      <Modal.Actions>
-        <Button
-          content='Create Chart'
-          labelPosition='right'
-          icon='checkmark'
-          onClick={() => {
-            setOpen(false)
-            createChart({ author: ['J.S. Fletcher'] })
-          }}
-          positive
-        />
-      </Modal.Actions>
-    </Modal>
-  )
-}
-
 function HomePage() {
   const [chartData, addChartData] = useState([])
 
-  const addChart = filters => addChartData(chartData.concat([filters]))
+  const createChart = filters => addChartData(chartData.concat([filters]))
 
   return (
     <Container
@@ -217,12 +132,18 @@ function HomePage() {
         margin: 'auto'
       }}
     >
-      <Scrollbar style={{ height: 'calc(100vh - 90px)' }}>
+      <Scrollbar style={{ height: 'calc(100vh - 90px - 0.875rem - 20px)' }}>
         <Container>
           {chartData.map((filters, i) => (
-            <Chart key={i} data={processData(fletcherData, filters)} />
+            <Fragment key={`fragment-${i}`}>
+              <Chart
+                key={`chart-${i}`}
+                data={processData(fletcherData, filters)}
+              />
+              <Divider key={`divider-${i}`} />
+            </Fragment>
           ))}
-          <AddChart createChart={addChart} />
+          <ChartModal createChart={createChart} />
         </Container>
       </Scrollbar>
     </Container>

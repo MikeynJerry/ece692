@@ -1,0 +1,62 @@
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 90px - 0.875rem - 20px);
+}
+
+.x {
+  animation: x 13s linear infinite alternate;
+}
+
+.y {
+  animation: y 7s linear infinite alternate;
+}
+
+@keyframes x {
+  0% {
+    transform: translateX(-45vw);
+  }
+
+  100% {
+    transform: translateX(45vw);
+  }
+}
+
+@keyframes y {
+  0% {
+    transform: translateY(calc((-100vh + 90px + 0.875rem + 90px) / 2));
+  }
+
+  100% {
+    transform: translateY(calc((100vh - 90px - 0.875rem - 90px) / 2));
+  }
+}
+
+.bounce {
+  animation: bounce 5s linear 100;
+  margin: auto;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  25% {
+    transform: translate(-30vh, -30vh);
+  }
+
+  50% {
+    transform: translate(200px, 0px);
+  }
+
+  75% {
+    transform: translate(100px, -100px);
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+  }
+}

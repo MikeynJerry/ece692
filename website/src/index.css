@@ -1,12 +1,13 @@
-#tsparticles, #tsparticles > canvas {
+#tsparticles,
+#tsparticles > canvas {
   position: absolute;
   z-index: 1 !important;
 }
 
 #tsparticles {
   width: 100%;
-  height: calc(100% - 90px);
-  top: 90px;
+  height: calc(100% - 90px - 0.875rem - 20px);
+  top: 82px;
 }
 
 .recharts-responsive-container {
@@ -22,25 +23,26 @@
 }
 
 html {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
 
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #F2F2F2;
-    font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  a {
-    text-decoration: none !important;
-  }
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-  /* [type=button]{
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f2f2f2;
+  font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+}
+a {
+  text-decoration: none !important;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+/* [type=button]{
     -webkit-appearance: none !important;
   } */

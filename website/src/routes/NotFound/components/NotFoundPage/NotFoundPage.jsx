@@ -1,17 +1,16 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
-import styles from './NotFoundPage.styles'
-
-const useStyles = makeStyles(styles)
+import './NotFoundPage.css'
 
 function NotFoundPage() {
-  const classes = useStyles()
-
   return (
-    <div className={classes.root}>
-      <Typography variant="h2">Whoops! 404!</Typography>
-      <p>This page was not found.</p>
+    <div className='parent'>
+      <div className='x'>
+        <div className='y' style={{ color: 'white' }}>
+          <Typography variant='h2'>Whoops! 404!</Typography>
+          <Typography variant='h4'>This page was not found.</Typography>
+        </div>
+      </div>
     </div>
   )
 }

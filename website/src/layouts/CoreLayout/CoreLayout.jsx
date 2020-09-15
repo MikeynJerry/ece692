@@ -10,6 +10,7 @@ import {
 } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Footer from '../../components/Footer'
+import './CoreLayout.css'
 
 const getWidth = () => {
   const isSSR = typeof window === 'undefined'
@@ -30,10 +31,7 @@ class DesktopContainer extends Component {
       <Responsive
         getWidth={getWidth}
         minWidth={Responsive.onlyTablet.minWidth}
-        style={{
-          width: '100%',
-          height: '100%'
-        }}
+        className='desktop-responsive-layout'
       >
         <Visibility
           once={false}
@@ -47,20 +45,15 @@ class DesktopContainer extends Component {
               pointing={!fixed}
               secondary={!fixed}
               size='large'
-              style={{
-                height: 82,
-                backgroundColor: '#101010'
-              }}
+              className='header__menu'
             >
               <Container>
                 <Menu.Item
                   as={Link}
                   to='/'
-                  style={{
-                    fontFamily: 'Pacifico,cursive',
-                    fontSize: '2em',
-                    color: 'white'
-                  }}
+                  active
+                  className='header__menu__item'
+                  style={{ borderColor: 'transparent' }}
                 >
                   Natural Language Processing
                 </Menu.Item>
