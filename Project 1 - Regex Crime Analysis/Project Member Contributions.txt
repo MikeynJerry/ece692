@@ -1,0 +1,53 @@
+Colab Notebooks:
+    Scraping Data for https://ece692-nlp.web.app/: https://colab.research.google.com/drive/1huc55Ew7JxtesevXQKlDZUeJfAekbPt7?usp=sharing
+    Scraping Data and Analysis: https://colab.research.google.com/drive/1huc55Ew7JxtesevXQKlDZUeJfAekbPt7?usp=sharing
+Overleaf Paper:
+    Report: https://www.overleaf.com/read/rpxvknykkptd
+Google Slides:
+    Presentation: https://docs.google.com/presentation/d/1dQNiYsPUrDQj7J1MpstgX9e6KDpQ9LETrwTtM_nrCd0/edit?usp=sharing
+Visualization Website:
+    Link: https://ece692-nlp.web.app/
+
+All of the above have also been included as files attached to this submission, in case the links are broken.
+Also, below I've added the contributions of each team member.
+
+
+Jerry Duncan
+    Role
+        Project Manager
+        Data Engineer
+    Background Research
+        Selected the 5 novels based on plot and length
+    Code
+        Wrote code to scrape Project Gutenberg for the books, clean and split the data into chapters and sentences, and provided an easy-to-use interface for searching for answers to the analysis questions
+        Completely created https://ece692-nlp.web.app/ from scratch
+    Report
+        Wrote the approach section
+
+Everett Rush
+    Role
+        Data Scientist
+    Background Research
+        Read large amounts of the five books and stored important book details in the code
+        Did background research on other computational approaches to the problem
+    Code
+        Wrote code to answer questions 1-6. excluding the data engineering part that downloads and parses the html
+        Created a computation approach to visualizing the plot twist in one of the novels.
+    Report
+        Wrote the intro section. Made a large contribution to the analysis section.
+
+Quan Zhou
+    Role
+        Data Scientist
+    Code
+        Visualized the plot twist in one of the novels
+    Report
+        Wrote the analysis section
+
+Daniel Schultz
+    Role
+        Domain Analyst
+    Report
+        Wrote the summary section
+    Presentation
+        Made the presentation
