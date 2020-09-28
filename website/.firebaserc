@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "ece692",
-    "master": "ece692",
-    "prod": "ece692"
+    "default": "ece692-nlp",
+    "master": "ece692-nlp",
+    "prod": "ece692-nlp"
   }
 }

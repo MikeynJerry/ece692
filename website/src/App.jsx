@@ -1,5 +1,5 @@
 import React from 'react'
-import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire'
+import { FirebaseAppProvider } from 'reactfire'
 import { BrowserRouter as Router } from 'react-router-dom'
 import NotificationsProvider from 'modules/notification/NotificationsProvider'
 import ThemeProvider from 'modules/theme/ThemeProvider'

@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react'
-import { Container, Modal, Button, Dropdown, Divider } from 'semantic-ui-react'
+import { Container, Divider } from 'semantic-ui-react'
 import Scrollbar from 'react-scrollbars-custom'
-import fletcherData from 'static/fletcher.json'
+import { books } from 'components/ChartModal/data'
 import {
   Line,
   ResponsiveContainer,
@@ -11,29 +11,29 @@ import {
   Tooltip,
   Legend,
   LineChart,
+  BarChart,
+  Bar,
   Brush
 } from 'recharts'
 import ChartModal from 'components/ChartModal'
 
-function sortData(data) {
-  const sortBy = 'title'
-  const sortedData = data.sort((a, b) =>
-    a[sortBy].toUpperCase() > b[sortBy].toUpperCase() ? 1 : -1
-  )
-  return processData(sortedData)
-}
-
 function filterData(data, filters) {
   return data.filter(book =>
     Object.keys(filters).every(key => {
-      return !!!filters[key].length || filters[key].includes(book[key])
+      return !filters[key].length || filters[key].includes(book[key])
     })
   )
 }
 
+const wordNumberLabels = {
+  0: '3rd before',
+  1: '2nd before',
+  2: '1st before',
+  3: '1st after',
+  4: '2nd after',
+  5: '3rd after'
+}
 function processData(data, filters) {
-  const normalize = false
-
   data = filterData(data, {
     author: [],
     title: [],
@@ -44,27 +44,50 @@ function processData(data, filters) {
   const bookLengths = data.map(book => book.numChapters)
   const maxBookLength = Math.max(...bookLengths)
 
-  const counts = Object.fromEntries(
-    new Array(maxBookLength)
-      .fill()
-      .map((_, chapter) => {
-        const rv = {}
-        for (const book of data) {
-          if (chapter < book.numChapters)
-            rv[`${book.title} - ${book.question} - "${book.query}"`] =
-              book.results[chapter + 1]
+  let counts, chartType
+  if (filters.question.length === 1 && filters.question[0] === 'Nearby Words') {
+    chartType = 'bar'
+    counts = new Array(6).fill().map((_, wordNumber) => {
+      const rv = { x: wordNumberLabels[wordNumber] }
+      for (const book of data) {
+        const [word, count] =
+          wordNumber < 3 ? book.before[wordNumber] : book.after[wordNumber - 3]
+        rv[
+          `${book.title} - ${book.question} - "${book.query.replace('.', '')}"`
+        ] = {
+          word,
+          count
         }
-        return rv
-      })
-      .map((val, key) => [key + 1, val])
-  )
-
-  return {
-    books: data,
-    counts: Object.keys(counts).map(key => {
+      }
+      return rv
+    })
+  } else {
+    chartType = 'line'
+    counts = Object.fromEntries(
+      new Array(maxBookLength)
+        .fill()
+        .map((_, chapter) => {
+          const rv = {}
+          for (const book of data) {
+            if (chapter < book.numChapters)
+              rv[`${book.title} - ${book.question} - "${book.query}"`] =
+                book.results[chapter + 1]
+          }
+          return rv
+        })
+        .map((val, key) => [key + 1, val])
+    )
+    counts = Object.keys(counts).map(key => {
       counts[key].x = parseInt(key)
       return counts[key]
     })
+  }
+
+  console.log(counts)
+  return {
+    books: data,
+    counts,
+    chartType
   }
 }
 
@@ -77,15 +100,10 @@ const colors = [
   '#ffa600'
 ]
 
-function Chart({ data: { books, counts } }) {
-  const lines = books.map(
-    book => `${book.title} - ${book.question} - "${book.query}"`
-  )
+function LChart({ lines, counts, height }) {
   return (
-    <ResponsiveContainer width='100%' height={300}>
+    <ResponsiveContainer width='100%' height={height}>
       <LineChart
-        width={730}
-        height={250}
         data={counts}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
@@ -102,13 +120,13 @@ function Chart({ data: { books, counts } }) {
             angle: -90
           }}
         />
-        <Tooltip />
+        <Tooltip separator=': ' />
         <Legend />
         {lines.map((title, i) => (
           <Line
             type='monotone'
             dataKey={title}
-            stroke={colors[i]}
+            stroke={colors[i % colors.length]}
             key={`${title}-${i}`}
           />
         ))}
@@ -116,6 +134,45 @@ function Chart({ data: { books, counts } }) {
       </LineChart>
     </ResponsiveContainer>
   )
+}
+
+function BChart({ lines, counts, height }) {
+  const tooltipFormatter = (value, name, props) => {
+    const { payload } = props
+    const formattedName = `${name.split(' - ')[0]} - ${payload[name].word} `
+    return [value, formattedName]
+  }
+  console.log(lines)
+  return (
+    <ResponsiveContainer width='100%' height={height}>
+      <BarChart data={counts}>
+        <XAxis dataKey='x' />
+        <YAxis />
+        <Tooltip formatter={tooltipFormatter} separator=': ' />
+        <Legend />
+        {lines.map((title, i) => (
+          <Bar
+            dataKey={`${title}.count`}
+            name={title}
+            key={`${title}-${i}`}
+            fill={colors[i % colors.length]}
+          />
+        ))}
+      </BarChart>
+    </ResponsiveContainer>
+  )
+}
+
+function Chart({ data: { books, counts, chartType } }) {
+  const lines = books.map(
+    book =>
+      `${book.title} - ${book.question} - "${book.query.replace('.', '')}"`
+  )
+  const chartHeight = 300 + 20 * (lines.length - 6)
+  if (chartType === 'line')
+    return <LChart lines={lines} counts={counts} height={chartHeight} />
+  if (chartType === 'bar')
+    return <BChart lines={lines} counts={counts} height={chartHeight} />
 }
 
 function HomePage() {
@@ -133,14 +190,11 @@ function HomePage() {
       }}
     >
       <Scrollbar style={{ height: 'calc(100vh - 90px - 0.875rem - 20px)' }}>
-        <Container>
+        <Container style={{ width: '100%' }}>
           {chartData.map((filters, i) => (
             <Fragment key={`fragment-${i}`}>
-              <Chart
-                key={`chart-${i}`}
-                data={processData(fletcherData, filters)}
-              />
-              <Divider key={`divider-${i}`} />
+              <Chart data={processData(books, filters)} />
+              <Divider />
             </Fragment>
           ))}
           <ChartModal createChart={createChart} />
