@@ -1,0 +1,23 @@
+/*
+#yAxis .tick line {
+  stroke: black;
+}
+
+
+#yAxis > .tick > line {
+  stroke: black;
+}
+
+#yAxis > .tick > text {
+  stroke: black;
+}
+*/
+
+.axislabel {
+  text-anchor: middle;
+  font-size: 16px;
+}
+
+.unselected {
+  opacity: 0.4;
+}

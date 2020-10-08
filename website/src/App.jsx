@@ -27,7 +27,8 @@ function App() {
   const routes = createRoutes()
   return (
     <>
-      <Particles params={particleConfig} />
+      <Particles params={particleConfig} className='particles-left' />
+      <Particles params={particleConfig} className='particles-right' />
       <ThemeProvider>
         <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
           <NotificationsProvider>

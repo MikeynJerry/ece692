@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { books, barChartKeys, lineChartKeys } from './data'
+import { books, barChartKeys, lineChartKeys } from 'static/crimeData'
 import {
   List,
   Modal,

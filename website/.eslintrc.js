@@ -17,6 +17,7 @@ module.exports = {
     semi: [2, 'never'],
     'no-console': 'error',
     'react/forbid-prop-types': 0,
+    'react/prop-types': 0,
     'react/require-default-props': 0,
     'react/jsx-filename-extension': 0,
     'import/no-named-as-default': 0,
@@ -27,13 +28,16 @@ module.exports = {
       'error',
       {
         singleQuote: true,
+        jsxSingleQuote: true,
         trailingComma: 'none',
         semi: false,
         bracketSpacing: true,
-        jsxBracketSameLine: true,
+        jsxBracketSameLine: false,
         printWidth: 80,
         tabWidth: 2,
-        useTabs: false
+        useTabs: false,
+        endOfLine: 'auto',
+        arrowParens: 'avoid'
       }
     ]
   },
