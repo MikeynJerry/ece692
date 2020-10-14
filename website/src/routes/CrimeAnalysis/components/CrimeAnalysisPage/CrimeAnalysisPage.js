@@ -173,7 +173,7 @@ function Chart({ data: { books, counts, chartType } }) {
     return <BChart lines={lines} counts={counts} height={chartHeight} />
 }
 
-function CrimePage() {
+function CrimeAnalysisPage() {
   const [chartData, addChartData] = useState([])
 
   const createChart = filters => addChartData(chartData.concat([filters]))
@@ -202,4 +202,4 @@ function CrimePage() {
   )
 }
 
-export default CrimePage
+export default CrimeAnalysisPage

@@ -5,7 +5,11 @@ import gloveAnalogies from 'static/gloveAnalogies.png'
 import gloveOccurrences from 'static/gloveOccurrences.png'
 import gloveProjections from 'static/gloveProjections.png'
 import Scrollbar from 'react-scrollbars-custom'
-import { CRIME_PATH, GLOVE_PATH } from 'constants/paths'
+import {
+  CRIME_ANALYSIS_PATH,
+  CRIME_RECOGNITION_PATH,
+  GLOVE_PATH
+} from 'constants/paths'
 
 function HomePage() {
   return (
@@ -22,7 +26,7 @@ function HomePage() {
           <Card
             image={crimeImage}
             header='Crime Novel Plot Analysis'
-            href={CRIME_PATH}
+            href={CRIME_ANALYSIS_PATH}
             raised
           />
           <Card
@@ -33,6 +37,12 @@ function HomePage() {
             }
             header='GloVe Embedding Demo'
             href={GLOVE_PATH}
+            raised
+          />
+          <Card
+            image={crimeImage}
+            header='Crime Novel Author Recognition'
+            href={CRIME_RECOGNITION_PATH}
             raised
           />
         </Card.Group>
