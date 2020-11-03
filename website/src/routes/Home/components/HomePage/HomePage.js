@@ -4,8 +4,11 @@ import crimeImage from 'static/crime.png'
 import gloveAnalogies from 'static/gloveAnalogies.png'
 import gloveOccurrences from 'static/gloveOccurrences.png'
 import gloveProjections from 'static/gloveProjections.png'
+import crimePredictions from 'static/crimePredictions.png'
+import adversarialHelper from 'static/adversarialHelper.png'
 import Scrollbar from 'react-scrollbars-custom'
 import {
+  ADVERSARIAL_HELPER_PATH,
   CRIME_ANALYSIS_PATH,
   CRIME_RECOGNITION_PATH,
   GLOVE_PATH
@@ -40,9 +43,15 @@ function HomePage() {
             raised
           />
           <Card
-            image={crimeImage}
+            image={crimePredictions}
             header='Crime Novel Author Recognition'
             href={CRIME_RECOGNITION_PATH}
+            raised
+          />
+          <Card
+            image={adversarialHelper}
+            header='Adversarial Helper'
+            href={ADVERSARIAL_HELPER_PATH}
             raised
           />
         </Card.Group>

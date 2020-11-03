@@ -4,6 +4,7 @@ import { SuspenseWithPerf } from 'reactfire'
 import LoadingSpinner from '../components/LoadingSpinner'
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
+import AdversarialHelperRoute from './AdversarialHelper'
 import CrimeAnalysisRoute from './CrimeAnalysis'
 import CrimeRecognitionRoute from './CrimeRecognition'
 import GloveRoute from './Glove'
@@ -16,11 +17,14 @@ export default function createRoutes() {
         <Switch>
           {/* eslint-disable-next-line react/jsx-pascal-case */}
           <Route exact path={Home.path} component={() => <Home.component />} />
-          {[CrimeAnalysisRoute, CrimeRecognitionRoute, GloveRoute].map(
-            settings => (
-              <Route key={`Route-${settings.path}`} {...settings} />
-            )
-          )}
+          {[
+            AdversarialHelperRoute,
+            CrimeAnalysisRoute,
+            CrimeRecognitionRoute,
+            GloveRoute
+          ].map(settings => (
+            <Route key={`Route-${settings.path}`} {...settings} />
+          ))}
           <Route component={NotFoundRoute.component} />
         </Switch>
       </SuspenseWithPerf>

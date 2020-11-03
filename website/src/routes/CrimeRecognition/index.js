@@ -1,5 +1,5 @@
 import { CRIME_RECOGNITION_PATH } from 'constants/paths'
-import CrimeRecognitionPage from './components/CrimeRecognitionPage/CrimeRecognitionPage'
+import CrimeRecognitionPage from './components/CrimeRecognitionPage'
 
 // Sync route definition
 export default {

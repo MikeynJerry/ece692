@@ -5,7 +5,8 @@ import NotificationsProvider from 'modules/notification/NotificationsProvider'
 import ThemeProvider from 'modules/theme/ThemeProvider'
 import createRoutes from './routes'
 import Particles from 'react-particles-js'
-import particleConfig from './particles.json'
+// import particleConfig from './particles.json'
+import particleConfig from './snow.json'
 import 'semantic-ui-css/semantic.min.css'
 
 const firebaseConfig = {

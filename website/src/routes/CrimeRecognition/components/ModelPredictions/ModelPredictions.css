@@ -1,0 +1,17 @@
+.link {
+  stroke-opacity: .6;
+}
+
+.link.inactive {
+  visibility: hidden;
+}
+
+.node:hover {
+  stroke: #999;
+  stroke-opacity: .6;
+  stroke-width: 4px;
+}
+
+.axis {
+  font-size: larger;
+}
